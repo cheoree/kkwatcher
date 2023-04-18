@@ -28,8 +28,8 @@ def check(name, deptId, prdSalStcd, period, bgnDate, endDate, prdCtgIds) :
         # 응답값에서 PRD_NM 추출하기
         prd_nm_list = json.loads(response.text)["avails"]
         prd_nm_values = [x.get("PRD_NM") for x in prd_nm_list if x.get("PRD_NM")]
-        prd_nm_values = list(filter(lambda x: not x.startswith('B'), prd_nm_values))
-        print (prd_nm_values)
+        #prd_nm_values = list(filter(lambda x: not x.startswith('B'), prd_nm_values)) #전기 안들어오는 사이트 'B'로 시작
+        if prd_nm_values : print (prd_nm_values)
 
         if not is_snooze and prd_nm_values:
 
