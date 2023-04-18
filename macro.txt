@@ -1,0 +1,59 @@
+# 소금강산 캐러밴 1박2일용
+document.querySelector('i[title="D1(4인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="D2(4인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="D3(4인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="D4(4인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="D5(4인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="D6(4인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="D7(4인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="D8(4인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="D9(4인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="D10(4인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="D11(4인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="D12(4인) : 2023-05-05"]').click(); reservation_before_auth();
+
+# 소금강산 캐러밴 2박3일용
+document.querySelector('i[title="D1(4인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click();reservation_before_auth();
+document.querySelector('i[title="D2(4인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click();reservation_before_auth();
+document.querySelector('i[title="D3(4인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click();reservation_before_auth();
+document.querySelector('i[title="D4(4인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click();reservation_before_auth();
+document.querySelector('i[title="D5(4인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click();reservation_before_auth();
+document.querySelector('i[title="D6(4인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click();reservation_before_auth();
+document.querySelector('i[title="D7(4인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click();reservation_before_auth();
+document.querySelector('i[title="D8(4인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click();reservation_before_auth();
+document.querySelector('i[title="D9(4인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click();reservation_before_auth();
+document.querySelector('i[title="D10(4인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click();reservation_before_auth();
+document.querySelector('i[title="D11(4인) : 2023-05-05"]').click();document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
+document.querySelector('i[title="D12(4인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click();reservation_before_auth();
+
+# 치악산 캐러밴 1박2일용
+document.querySelector('i[title="1호(6인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="2호(6인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="3호(6인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="4호(6인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="5호(6인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="6호(6인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="7호(6인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="8호(6인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="9호(6인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="10호(6인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="11호(6인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="12호(6인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="13호(6인) : 2023-05-05"]').click(); reservation_before_auth();
+document.querySelector('i[title="14호(6인) : 2023-05-05"]').click(); reservation_before_auth();
+
+# 치악산 캐러밴 2박3일용
+document.querySelector('i[title="1호(6인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
+document.querySelector('i[title="2호(6인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
+document.querySelector('i[title="3호(6인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
+document.querySelector('i[title="4호(6인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
+document.querySelector('i[title="5호(6인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
+document.querySelector('i[title="6호(6인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
+document.querySelector('i[title="7호(6인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
+document.querySelector('i[title="8호(6인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
+document.querySelector('i[title="9호(6인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
+document.querySelector('i[title="10호(6인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
+document.querySelector('i[title="11호(6인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
+document.querySelector('i[title="12호(6인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
+document.querySelector('i[title="13호(6인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
+document.querySelector('i[title="14호(6인) : 2023-05-05"]').click(); document.querySelector("span.length-stay[data-check_per='2']").click(); reservation_before_auth();
