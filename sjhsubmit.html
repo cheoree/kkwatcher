@@ -1,0 +1,10 @@
+<script>
+  window.onload = function() {
+    var xhr = new XMLHttpRequest();
+    var url = "https://gwgs.ticketplay.zone/portal/realtime/reservation";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    var payload = "room_area_no=1&stay_cnt=1&check_in=20230529&check_out=20230530&roomNoArr=102";
+    xhr.send(payload);
+  };
+</script>
