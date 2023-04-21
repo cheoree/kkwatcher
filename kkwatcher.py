@@ -2,7 +2,15 @@ import requests
 import time
 import random
 import json
+import datetime
+import threading
+import traceback
 from concurrent.futures import ThreadPoolExecutor
+
+def log_exception(*args):
+    traceback.print_exc()
+
+threading.excepthook = log_exception
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299',
@@ -28,8 +36,9 @@ def check(name, deptId, prdSalStcd, period, bgnDate, endDate, prdCtgIds) :
         # 응답값에서 PRD_NM 추출하기
         prd_nm_list = json.loads(response.text)["avails"]
         prd_nm_values = [x.get("PRD_NM") for x in prd_nm_list if x.get("PRD_NM")]
-        #prd_nm_values = list(filter(lambda x: not x.startswith('B'), prd_nm_values)) #전기 안들어오는 사이트 'B'로 시작
-        if prd_nm_values : print (prd_nm_values)
+        #prd_nm_values = list(filter(lambda x: not x.startswith('B'), prd_nm_values))
+        if prd_nm_values :
+            print (prd_nm_values)
 
         if not is_snooze and prd_nm_values:
 
@@ -42,7 +51,6 @@ def check(name, deptId, prdSalStcd, period, bgnDate, endDate, prdCtgIds) :
             telegram_data = {"chat_id": telegram_chat_id, "text": message}
 
             response = session.post(telegram_url, data=telegram_data, headers=headers)
-            print(response.text)
             #session2.close()
             is_snooze = True
             snooze_start = time.time()
@@ -52,16 +60,17 @@ def check(name, deptId, prdSalStcd, period, bgnDate, endDate, prdCtgIds) :
 
         session.close()
         # 무작위 인터벌 설정하기
-        interval = round(random.uniform(1.0, 4.0), 2)
+        interval = round(random.uniform(1.0, 3.0), 2)
         #interval = round(random.uniform(7.0, 9.0), 2)
-        print ("interval : " + str(interval))
+        now = datetime.datetime.now()
+        print (name + " interval : " + str(interval) + ", " + now.strftime("%Y-%m-%d %H:%M:%S"))
 
         # 인터벌 대기하기
         time.sleep(interval)
 
     return 'done'
 
-with ThreadPoolExecutor(max_workers=36) as executor:
+with ThreadPoolExecutor(max_workers=6) as executor:
     future01 = executor.submit(check,'오대산 5/5 1박', 'B061001', 'N', '1', '20230505', '20230506', '02032,02021')
     future02 = executor.submit(check,'오대산 5/6 1박', 'B061001', 'N', '1', '20230506', '20230507', '02032,02021')
     future03 = executor.submit(check,'오대산 2박3일', 'B061001', 'N', '2', '20230505', '20230507', '02032,02021')
@@ -70,6 +79,7 @@ with ThreadPoolExecutor(max_workers=36) as executor:
     future05 = executor.submit(check,'오대산 5/6 1박', 'B061001', 'W', '1', '20230506', '20230507', '02032,02021')
     future06 = executor.submit(check,'오대산 2박3일', 'B061001', 'W', '2', '20230505', '20230507', '02032,02021')
 
+"""
     future07 = executor.submit(check,'치악산 5/5 1박', 'B101001', 'N', '1', '20230505', '20230506', '02032,02021')
     future08 = executor.submit(check,'치악산 5/6 1박', 'B101001', 'N', '1', '20230506', '20230507', '02032,02021')
     future09 = executor.submit(check,'치악산 2박3일', 'B101001', 'N', '2', '20230505', '20230507', '02032,02021')
