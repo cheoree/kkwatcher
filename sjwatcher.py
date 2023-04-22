@@ -2,7 +2,16 @@ import requests
 import time
 import random
 import json
+import datetime
+import threading
+import traceback
+import sys
 from concurrent.futures import ThreadPoolExecutor
+
+def log_exception(*args):
+    traceback.print_exc()
+
+threading.excepthook = log_exception
 
 # curl -X POST "https://gwgs.ticketplay.zone/portal/realtime/productSearchJson" -d "stay_cnt=2&check_in=20230502" --silent | jq
 headers = {
@@ -41,7 +50,7 @@ def check(name, stay_cnt, check_in, check_out):
 
         # 응답값에서 PRD_NM 추출하기
         room_list = json.loads(response.text)["RESULT_DATA"]
-        room_vals = [x.get("ROOM_AREA_NAME") + "(" + str(x.get("ROOM_CNT")) + "/" + str(x.get("TOT_ROOM_CNT")) + "):" + str(x.get("ROOM_AREA_NO")) for x in room_list if x.get("ROOM_CNT") > 0]
+        room_vals = [x.get("ROOM_AREA_NAME") + "(" + str(x.get("ROOM_CNT")) + "/" + str(x.get("TOT_ROOM_CNT")) + "):" + str(x.get("ROOM_AREA_NO")) for x in room_list if x.get("ROOM_CNT") > 0 and x.get("ROOM_AREA_NAME") == "통나무"]
 
         if not is_snooze and room_vals:
             # 스누즈 상태가 아니면서, 조건이 충족되면 작업 수행
@@ -66,7 +75,9 @@ def check(name, stay_cnt, check_in, check_out):
         session.close()
         # 무작위 인터벌 설정하기
         interval = round(random.uniform(0.7, 1.4), 2)
-        print (name + " interval : " + str(interval))
+        now = datetime.datetime.now()
+        print (name + " " + str(interval) + ", " + now.strftime("%Y-%m-%d %H:%M:%S"))
+        sys.stdout.flush()
 
         # 인터벌 대기하기
         time.sleep(interval)

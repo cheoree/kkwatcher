@@ -5,6 +5,7 @@ import json
 import datetime
 import threading
 import traceback
+import sys
 from concurrent.futures import ThreadPoolExecutor
 
 def log_exception(*args):
@@ -63,7 +64,8 @@ def check(name, deptId, prdSalStcd, period, bgnDate, endDate, prdCtgIds) :
         interval = round(random.uniform(1.0, 3.0), 2)
         #interval = round(random.uniform(7.0, 9.0), 2)
         now = datetime.datetime.now()
-        print (name + " interval : " + str(interval) + ", " + now.strftime("%Y-%m-%d %H:%M:%S"))
+        print (name + " " + str(interval) + ", " + now.strftime("%Y-%m-%d %H:%M:%S"))
+        sys.stdout.flush()
 
         # 인터벌 대기하기
         time.sleep(interval)
