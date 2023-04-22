@@ -119,3 +119,4 @@ with ThreadPoolExecutor(max_workers=6) as executor:
     future16 = executor.submit(check,'태백산 5/5 1박', 'B221004', 'W', '1', '20230505', '20230506', '02032')
     future17 = executor.submit(check,'태백산 5/6 1박', 'B221004', 'W', '1', '20230506', '20230507', '02032')
     future18 = executor.submit(check,'태백산 2박3일', 'B221004', 'W', '2', '20230505', '20230507', '02032')
+"""
