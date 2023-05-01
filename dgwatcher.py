@@ -6,7 +6,9 @@ import datetime
 import threading
 import traceback
 import sys
+import concurrent.futures
 from concurrent.futures import ThreadPoolExecutor
+from bs4 import BeautifulSoup
 
 def log_exception(*args):
     traceback.print_exc()
@@ -16,8 +18,8 @@ threading.excepthook = log_exception
 # curl -X POST "https://gwgs.ticketplay.zone/portal/realtime/productSearchJson" -d "stay_cnt=2&check_in=20230502" --silent | jq
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36 Edge/16.16299',
-    'Origin' : 'https://gwgs.ticketplay.zone',
-    'Referer' : 'https://gwgs.ticketplay.zone/portal/realtime/productSearch',
+    #'Origin' : 'https://bytour.co.kr/item.php?it_id=1645153876',
+    'Referer' : 'https://jsimc.or.kr/',
     'Cookie' : '_gid=GA1.2.1202545219.1681777525; __utmc=83068928; __utmz=83068928.1681777525.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); JSESSIONID=CA0435BE3EDDD1859D1B62A389CE85E3.worker1; __utma=83068928.1196473108.1681777525.1681777525.1681824177.2; _ga_9WPCMLF9RN=GS1.1.1681824176.2.1.1681824193.0.0.0; _ga=GA1.2.1196473108.1681777525; __utmb=83068928.4.9.1681824193424',
     'sec-ch-ua': '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"'
 }
@@ -38,28 +40,28 @@ telegram_chat_id = "-1001583606817"
       "USE_AMT": 40000
     },
 """
-def check(name, stay_cnt, check_in, check_out):
+def check(name, date) :
     is_snooze = False  # 스누즈 상태 초기값
     snooze_start = 0  # 스누즈 시작 시간 초기값
 
     while True:
         # HTTP POST 요청 보내기
-        data = {"stay_cnt": stay_cnt, "check_in" : check_in}
         session = requests.Session()
-        response = session.post("https://gwgs.ticketplay.zone/portal/realtime/productSearchJson", data=data, headers=headers)
-
-        # 응답값에서 PRD_NM 추출하기
-        room_list = json.loads(response.text)["RESULT_DATA"]
-        room_vals = [x.get("ROOM_AREA_NAME") + "(" + str(x.get("ROOM_CNT")) + "/" + str(x.get("TOT_ROOM_CNT")) + "):" + str(x.get("ROOM_AREA_NO")) for x in room_list if x.get("ROOM_CNT") > 0 and x.get("ROOM_AREA_NAME") == "통나무"]
+        response = session.get("https://bytour.co.kr/item.php?it_id=1645153876", headers=headers)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        room_vals = []
+        for li in soup.find_all('li'):
+            opt_id = li.get('data-opt_id')
+            opt_name = str(li.get('data-opt_name'))
+            opt_price2 = li.get('data-opt_price2')
+            if opt_name != "" and opt_id != "":
+                if opt_name == date :
+                    room_vals.append(date)
+                #print(str(opt_name) + ": " + str(opt_id) + ", " + str(opt_price2))
 
         if not is_snooze and room_vals:
             # 스누즈 상태가 아니면서, 조건이 충족되면 작업 수행
-            message = name + '\n\n'
-            for r in room_vals:
-                message = message + r.split(":")[0] + '\n'
-                room_area_no = r.split(":")[1]
-                durl = f'https://gwgs.ticketplay.zone/portal/realtime/productSelect?room_area_no={room_area_no}&stay_cnt={stay_cnt}&check_in={check_in}&check_out={check_out}'
-                message = message + durl + '\n\n'
+            message = name + '\n\n' + 'https://bytour.co.kr/item.php?it_id=1645153876'
             print (message)
             telegram_url = f"https://api.telegram.org/bot{telegram_bot_token}/sendMessage"
             telegram_data = {"chat_id": telegram_chat_id, "text": message}
@@ -74,7 +76,7 @@ def check(name, stay_cnt, check_in, check_out):
 
         session.close()
         # 무작위 인터벌 설정하기
-        interval = round(random.uniform(0.7, 1.1), 2)
+        interval = round(random.uniform(3.7, 3.1), 2)
         now = datetime.datetime.now()
         print (name + " " + str(interval) + ", " + now.strftime("%Y-%m-%d %H:%M:%S"))
         sys.stdout.flush()
@@ -84,7 +86,16 @@ def check(name, stay_cnt, check_in, check_out):
 
     return 'done'
 
+futures = []
 with ThreadPoolExecutor(max_workers=3) as executor:
-    future01 = executor.submit(check,'송지호 5/5 1박', "1", "20230505", "20230506")
-    future02 = executor.submit(check,'송지호 5/6 1박', "1", "20230506", "20230507")
-    future03 = executor.submit(check,'송지호 2박3일', "2", "20230505", "20230507")
+    future01 = executor.submit(check,'동강전망 5/5 1박', "2023-05-05")
+    futures.append(future01)
+    future02 = executor.submit(check,'동강전망 5/27 1박', "2023-05-27")
+    futures.append(future02)
+
+# 결과 출력 및 예외 처리
+for future in concurrent.futures.as_completed(futures):
+    try:
+        result = future.result()
+    except Exception as e:
+        print('Exception: %s' % e)
