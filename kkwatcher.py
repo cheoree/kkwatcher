@@ -7,6 +7,7 @@ import threading
 import traceback
 import sys
 import concurrent.futures
+from datetime import timedelta
 from concurrent.futures import ThreadPoolExecutor
 
 def log_exception(*args):
@@ -70,7 +71,7 @@ def check(name, deptId, prdSalStcd, period, bgnDate, endDate, prdCtgIds) :
         # 무작위 인터벌 설정하기
         interval = round(random.uniform(1.0, 3.0), 2)
         #interval = round(random.uniform(7.0, 9.0), 2)
-        now = datetime.datetime.now()
+        now = datetime.datetime.now() + timedelta(hours=9)
         print (name + " " + str(interval) + ", " + now.strftime("%Y-%m-%d %H:%M:%S"))
         sys.stdout.flush()
 
@@ -81,19 +82,12 @@ def check(name, deptId, prdSalStcd, period, bgnDate, endDate, prdCtgIds) :
 
 futures = []
 with ThreadPoolExecutor(max_workers=6) as executor:
-    future01 = executor.submit(check,'오대산 5/5 1박', 'B061001', 'N', '1', '20230505', '20230506', '02032,02021')
-    futures.append(future01)
-    future02 = executor.submit(check,'오대산 5/6 1박', 'B061001', 'N', '1', '20230506', '20230507', '02032,02021')
+    #future01 = executor.submit(check,'오대산 5/5 1박', 'B061001', 'N', '1', '20230505', '20230506', '02032')
+    #futures.append(future01)
+    future02 = executor.submit(check,'오대산 5/6 1박', 'B061001', 'N', '1', '20230506', '20230507', '02032')
     futures.append(future02)
-    future03 = executor.submit(check,'오대산 2박3일', 'B061001', 'N', '2', '20230505', '20230507', '02032,02021')
+    future03 = executor.submit(check,'오대산 2박3일', 'B061001', 'N', '2', '20230505', '20230507', '02032')
     futures.append(future03)
-
-    future04 = executor.submit(check,'오대산 5/5 1박', 'B061001', 'W', '1', '20230505', '20230506', '02032,02021')
-    futures.append(future04)
-    future05 = executor.submit(check,'오대산 5/6 1박', 'B061001', 'W', '1', '20230506', '20230507', '02032,02021')
-    futures.append(future05)
-    future06 = executor.submit(check,'오대산 2박3일', 'B061001', 'W', '2', '20230505', '20230507', '02032,02021')
-    futures.append(future06)
 
 # 결과 출력 및 예외 처리
 for future in concurrent.futures.as_completed(futures):

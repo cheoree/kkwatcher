@@ -6,6 +6,7 @@ import datetime
 import threading
 import traceback
 import sys
+from datetime import timedelta
 from concurrent.futures import ThreadPoolExecutor
 
 def log_exception(*args):
@@ -75,7 +76,7 @@ def check(name, stay_cnt, check_in, check_out):
         session.close()
         # 무작위 인터벌 설정하기
         interval = round(random.uniform(0.7, 1.1), 2)
-        now = datetime.datetime.now()
+        now = datetime.datetime.now() + timedelta(hours=9)
         print (name + " " + str(interval) + ", " + now.strftime("%Y-%m-%d %H:%M:%S"))
         sys.stdout.flush()
 
