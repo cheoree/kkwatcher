@@ -77,7 +77,7 @@ def check(name, date) :
 
         session.close()
         # 무작위 인터벌 설정하기
-        interval = round(random.uniform(1.7, 2.1), 2)
+        interval = round(random.uniform(3.7, 6.1), 2)
         now = datetime.datetime.now() + timedelta(hours=9)
         print (name + " " + str(interval) + ", " + now.strftime("%Y-%m-%d %H:%M:%S"))
         sys.stdout.flush()

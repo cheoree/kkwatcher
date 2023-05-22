@@ -64,7 +64,7 @@ def check(name, dt, tm) :
         session.close()
 
         # 무작위 인터벌 설정하기
-        interval = round(random.uniform(4.6, 2.1), 2)
+        interval = round(random.uniform(1.6, 10), 2)
         now = datetime.datetime.now() + timedelta(hours=9)
         print (name + " " + str(interval) + ", " + now.strftime("%Y-%m-%d %H:%M:%S"))
         sys.stdout.flush()
@@ -76,9 +76,9 @@ def check(name, dt, tm) :
 
 futures = []
 with ThreadPoolExecutor(max_workers=2) as executor:
-    future01 = executor.submit(check,'별마로 05-27', "2023-05-27", ["20:30", "21:00", "21:30"])
+    future01 = executor.submit(check,'별마로 05-27', "2023-05-27", ["20:30", "21:00"])
     futures.append(future01)
-    future02 = executor.submit(check,'별마로 05-28', "2023-05-28", ["20:30", "21:00", "21:30"])
+    future02 = executor.submit(check,'별마로 05-28', "2023-05-28", ["20:30", "21:00"])
     futures.append(future02)
 
 # 결과 출력 및 예외 처리
