@@ -3,6 +3,7 @@ import time
 import random
 import json
 import datetime
+import os
 import threading
 import traceback
 import sys
@@ -25,8 +26,14 @@ headers = {
     'sec-ch-ua': '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"'
 }
 
-telegram_bot_token = "6236084783:AAGheuj2FnRgWvw191FEH1ABsqp1LIM4gA8"
-telegram_chat_id = "-1001583606817"
+def get_required_env(name):
+    value = os.getenv(name)
+    if not value:
+        raise RuntimeError(f"Missing required environment variable: {name}")
+    return value
+
+telegram_bot_token = get_required_env("TELEGRAM_BOT_TOKEN")
+telegram_chat_id = get_required_env("TELEGRAM_CHAT_ID")
 
 """
 {

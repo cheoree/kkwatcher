@@ -3,6 +3,7 @@ import time
 import random
 import json
 import datetime
+import os
 import threading
 import traceback
 import sys
@@ -24,8 +25,14 @@ headers = {
     'Cookie' : 'ASPSESSIONIDCQABQTQD=AJLICHCADLJDMIJPHHOLGFBB; cookie_name=cookie_value; ASPSESSIONIDCUAFQTQD=BJLICHCAKCMFJHAAPDAAMIHJ; __utma=237822344.2053226346.1683603013.1683603013.1683603013.1; __utmc=237822344; __utmz=237822344.1683603013.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); safeCookie1=foo; safeCookie2=foo; crossCookie=bar; __utmb=237822344.18.9.1683603503108'
 }
 
-telegram_bot_token = "6236084783:AAGheuj2FnRgWvw191FEH1ABsqp1LIM4gA8"
-telegram_chat_id = "-1001583606817"
+def get_required_env(name):
+    value = os.getenv(name)
+    if not value:
+        raise RuntimeError(f"Missing required environment variable: {name}")
+    return value
+
+telegram_bot_token = get_required_env("TELEGRAM_BOT_TOKEN")
+telegram_chat_id = get_required_env("TELEGRAM_CHAT_ID")
 
 def check(name, dt, tm) :
     is_snooze = False  # 스누즈 상태 초기값
